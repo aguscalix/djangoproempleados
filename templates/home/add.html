@@ -8,7 +8,10 @@
 </head>
 <body>
     <h1>AGREGAR CAMPOS</h1>
-
-    {{form}}
+    <form method="POST"> {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Guardar</button>
+    </form>
+    
 </body>
 </html>
