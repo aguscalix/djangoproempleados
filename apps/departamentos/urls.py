@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 
+from . import views
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('new-departamento', views.NuevoDepartamentoView.as_view(), name='nuevo_departamento'),
 ]
