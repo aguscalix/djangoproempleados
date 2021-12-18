@@ -18,6 +18,11 @@ from .models import Empleado
 # Create your views here.
 
 
+class InicioView(TemplateView):
+    template_name = "inicio.html"
+
+
+
 class listar_empleadosListView(ListView):
     model = Empleado
     paginate_by = 5
