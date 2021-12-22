@@ -1,16 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Detalle del empleado</h1>
-    {{empleado}}<!-- Modelo Empleado solo que todo en minúscula -->
+{% extends 'base.html' %}
 
-    <h1>Todos los detalles</h1>
+{% load static %}
+
+
+{% block title %}
+    {{object.full_name}}    
+{% endblock title %}
+
+
+
+{% block content %}
+
+    {% include 'includes/header.html' %}
+
+    <div class="grid-container">
+        <div class="grid-x align-center">
+
+            <div class="cell large-4 card" style="width: 300px; margin-top: 10px;">
+                <div class="card-divider">
+                    {{empleado.get_job_display}}<!-- get_job_display Recupera el valor de los choices -->
+                  
+                </div>
+                
+                {% if empleado.avatar %}
+                    
+                    <img src="{{empleado.avatar.url}}">
+                
+                {% else %}
+
+                    <img src="{% static 'img/no-foto.jpg' %}">
+                    
+                {% endif %}
+                    
+
+                
+                <div class="card-section">
+                  <h4>{{empleado.first_name}}</h4>
+                  <h4>{{empleado.last_name}}</h4>
+                  <p>{{empleado.departamento.name}}</p>
+                  <p><span class="label">Habilidades:</span></p>
+                  <ul>
+                      
+                      {% for h in empleado.habilidades.all  %}
+                          <li>
+                              {{h}}
+                          </li>
+                      {% endfor %}
+                          
+                  </ul>
+        
+                </div>
+              </div>
+
+        </div>
+
+    </div>
     
-</body>
-</html>
+{% endblock content %}
+    

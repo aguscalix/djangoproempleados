@@ -1,34 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Registrar nuevo departamento</h1>
+{% extends 'base.html' %}
 
-    <form method="POST"> {% csrf_token %}
 
-        <h2>Datos del empleado</h2>
-        <p>
-            {{form.nombre}}
-        </p>
-        <p>
-            {{form.apellidos}}
-        </p>
+{% block title %}
+    Nuevo Departamento    
+{% endblock title %}
 
-        <h2>datos del departamento</h2>
-        <p>
-            {{form.departamento}}
-        </p>
-        <p>
-            {{form.nombreCorto}}
-        </p>
 
-        <button type="submit">Guardar</button>
+{% block content %}
 
-    </form>
-</body>
-</html>
+    {% include 'includes/header.html' %}
+
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell">
+                <h1>Agregar Departamento</h1>
+
+            </div>
+            <div class=" callout cell">
+                <form method="POST"> {% csrf_token %}
+                    <div class="grid-x grid-padding-x">
+                        <div class=" medium-6 cell">
+                          <label>Nombres
+                            {{form.nombre}}
+                          </label>
+                        </div>
+                    
+                    
+                        <div class=" medium-6 cell">
+                          <label>Apellidos
+                            {{form.apellidos}}
+                          </label>
+                        </div>
+                    
+                    
+                        <div class=" medium-6 cell">
+                          <label>Departamento
+                            {{form.departamento}}
+                          </label>
+                        </div>
+                   
+                   
+                        <div class=" medium-6 cell">
+                          <label>Nombre Corto del Departamento
+                            {{form.nombreCorto}}
+                          </label>
+                        </div>
+                        <div class=" medium-6 cell">
+                            <button class="submit success button">Guardar</button>
+                          </div>
+                    </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+{% endblock content %}
+
+    
+    
+
+   
+
+    

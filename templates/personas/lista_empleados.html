@@ -5,16 +5,8 @@
 
 <div class="grid-container">
     <div class="grid-x">
-        <h1 class="cell">Lista Empleados</h1>
-        <div class="cell grid-x">
-            <div class="cell large-7">
-                <input type="text" placeholder="Buscar empleado">
-            </div>
-            <div class="cell large-2">
-                <button type="button" class="button primary">Buscar</button>
-            </div>
-
-        </div>
+        <h1 class="cell">Administrar Empleados</h1>
+        
         <div class="cell">
             <table>
                 <thead>
@@ -27,13 +19,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                    {% for e in empleado %} <!-- object_list es qel valor por defecto que envia un listview pero mejor usar la variable del context_object_name -->
+                    {% for e in empleados %} <!-- object_list es qel valor por defecto que envia un listview pero mejor usar la variable del context_object_name -->
                     <tr>
                         <td>{{e.id}}</td>
                         <td>{{e.first_name}}</td>
                         <td>{{e.last_name}}</td>
                         <td>{{e.departamento}}</td>
-                        <td><a class="button secondary" href="{% url 'persona_app:ver_empleado' e.id %}">Ver</a></td>
+                        <td><a class="button primary" href="{% url 'persona_app:modificar_empleado' e.id %}">Editar</a></td>
+                        <td><a class="button alert" href="{% url 'persona_app:eliminar_empleado' e.id %}">Eliminar</a></td>
                         
                     </tr>
                     {% endfor %}

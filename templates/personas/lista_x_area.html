@@ -1,15 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Listar por departamento</h1>
-    {% for e in object_list %}
-        <li>{{e}}</li>
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+
+
+{% block title %}
+
+    Empleados por departamento
+    
+{% endblock title %}
+
+
+{% block content %}
+
+    {% include 'includes/header.html' %}
+
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell">
+
+                Empleados por área
+
+            </div>
+
+            <div class="cell">
+                <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nombres</th>
+                        <th width="150">Apellidos</th>
+                        <th width="150">Departamento</th>
+                        <th width="150">Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for e in empleado %} <!-- object_list es qel valor por defecto que envia un listview pero mejor usar la variable del context_object_name -->
+                        <tr>
+                            <td>{{e.id}}</td>
+                            <td>{{e.first_name}}</td>
+                            <td>{{e.last_name}}</td>
+                            <td>{{e.departamento}}</td>
+                            <td><a class="button secondary" href="#">Ver</a></td>
+                            
+                        </tr>
+                        {% endfor %}
+                      
+                    </tbody>
+                  </table>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+{% endblock content %}
+
+   
+    
+    

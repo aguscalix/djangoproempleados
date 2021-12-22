@@ -1,18 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Registrar Persona</h1>
+{% extends 'base.html' %}
+
+
+{% block title %}
+
+    Registrar Empleado
+    
+{% endblock title %}
+
+
+{% block content %}
+
+{% include 'includes/header.html' %}
+
+<div class="grid-container">
+    <div class="grid-x">
+        <h1 class="cell">
+
+            Agregar Empleado
+
+        </h1>
+        <div class="cell">
+            <form method="POST" enctype="multipart/form-data"> {% csrf_token %} <!-- enctype="multipart/form-data" HAY QUE AGREGARLO PARA GUARDAR LA IMGEN DE FOTOGRAFÍA -->
+                <div class="grid-x grid-padding-x">
+                    <div class="medium-6 cell">
+                        <label>Nombres
+                            {{ form.first_name}}                          
+                        </label>
+                    </div>
+                    <div class="medium-6 cell">
+                        <label>Apellidos
+                            {{ form.last_name}}                          
+                        </label>
+                    </div>
+                    <div class="medium-6 cell">
+                        <label>Área
+                            {{ form.job}}                          
+                        </label>
+                    </div>
+                    <div class="medium-6 cell">
+                        <label>Departamento
+                            {{ form.departamento}}                          
+                        </label>
+                    </div>
+                    <div class="medium-6 cell">
+                        <label>Habilidades
+                            {{ form.habilidades}}                          
+                        </label>
+                    </div>
+                    <div class="medium-6 cell">
+                        <label>Fotografía
+                            {{ form.avatar}}                          
+                        </label>
+                    </div>
+                    <div class="cell">
+                        <button class="submit success button">Save</button>
+                        
+                    </div>
+
+                </div>
+                
+                
+                
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+    
+{% endblock content %}
+    
+
+    Registrar Empleado
+    
+    <h1>Registrar Empleado</h1>
 
     <form method="POST">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Agregar</button>
     </form>
     
-</body>
-</html>

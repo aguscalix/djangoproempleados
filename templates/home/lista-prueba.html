@@ -9,8 +9,12 @@
 <body>
     <h1>LISTAR DESDE BASE DE DATOS</h1>
 
+    <!-- SI SE MUESTRA UN QUERYSET HACE REFERENCIA A UNA CONSULTA A LA BASE DE DATOS APARECE QUERYSET SI SE LLAMA DE ESTA FORMA {{lista}} donde lista es el context_object_name de la vista -->
+
+
+    <!-- template tags para iterar los datos del modelo Prueba con el contexto lista -->
     {% for elemento in lista %}
-        <p>{{elemento.titulo}}</p>
+        <p>{{elemento.titulo}}</p><!-- se imprime un atributo especifico de la tabla Prueba por el ejemplo el titulo -->
     {% endfor %}
 
 </body>

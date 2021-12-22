@@ -15,6 +15,8 @@ from apps import personas
 
 from .models import Empleado
 
+from .forms import EmpleadoForm
+
 # Create your views here.
 
 
@@ -24,21 +26,41 @@ class InicioView(TemplateView):
 
 
 class listar_empleadosListView(ListView):
-    model = Empleado
-    paginate_by = 5
+    paginate_by = 4 # cuando se aplica este parametro, este listview internamente crea un objeto de paginacion y podra ser enviado al template
     template_name = "personas/listar_todos.html"
+    ordering = 'first_name'
+    context_object_name = 'empleado' # parámetro que usa ListView para declarar una especie de variable para hacer referencia a los datos de la lista del queryset EN EL ARCHIVO HTML SE LLAMA ESTA VARIABLE DE ESTA FORMA {{empleado}}
+
+    def get_queryset(self):
+        palabra_clave = self.request.GET.get("kword", '')
+        lista = Empleado.objects.filter(
+            full_name__icontains = palabra_clave
+        )  
+        return lista
+
+
+class ListaEmpleadosAdminListView(ListView):
+    model = Empleado
+    template_name = "personas/lista_empleados.html"
+    paginate_by = 10
+    ordering = 'first_name'
+    context_object_name = 'empleados'
+
+
 
 
 class listarxareaListView(ListView):
     template_name = "personas/lista_x_area.html"
+
+    context_object_name = 'empleado'
     
 
     def get_queryset(self):
 
-        area = self.kwargs['name'] #Para recoger un parametro desde url
+        area = self.kwargs['shortname'] #Para recoger un parametro desde url shorname es como una variable y que se coloca en el url
 
-        lista = Empleado.objects.filter(
-            departamento__name = area
+        lista = Empleado.objects.filter( # en esta lista guardamos el filtrado de datos
+            departamento__short_name = area #del modelo departamento
         )
 
         return lista
@@ -84,22 +106,22 @@ class SuccessView(TemplateView):
 class EmpleadoCreateView(CreateView):
     model = Empleado
     template_name = "personas/add.html"
-    fields = ('first_name', 'last_name', 'job', 'departamento', 'habilidades')
-    success_url = reverse_lazy('persona_app:correcto')
+    form_class = EmpleadoForm
+    success_url = reverse_lazy('persona_app:lista_empleado')
 
     def form_valid(self, form):
     
         empleado = form.save(commit=False)
         empleado.full_name = empleado.first_name + ' ' + empleado.last_name
-        empleado.savev()
+        empleado.save()
         return super(EmpleadoCreateView, self).form_valid(form)
 
 
 class EmpleadoUpdateView(UpdateView):
     model = Empleado
     template_name = "personas/update.html"
-    fields = ['first_name', 'last_name', 'job', 'departamento', 'habilidades',]
-    success_url = reverse_lazy('persona_app:correcto')
+    fields = ['first_name', 'last_name', 'full_name' 'job', 'departamento', 'habilidades',]
+    success_url = reverse_lazy('persona_app:lista_empleado')
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -113,7 +135,8 @@ class EmpleadoUpdateView(UpdateView):
 class EmpleadoDeleteView(DeleteView):
     model = Empleado
     template_name = "personas/delete.html"
-    success_url = reverse_lazy('persona_app:correcto')
+    success_url = reverse_lazy('persona_app:lista_empleado')
+    
 
 
 

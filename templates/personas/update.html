@@ -1,17 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Modificar Empleado</h1>
+{% extends 'base.html' %}
 
-    <form method="POST"> {% csrf_token %}
-        {{ form.as_p}}
-        <button type="submit">Actualizar</button>
-    </form>
-</body>
-</html>
+
+{% block title %}
+
+    
+{% endblock title %}
+
+
+{% block content %}
+    {% include 'includes/header.html' %}
+
+    <div class="grid-container">
+        <div class="grid-x">
+            <h1 class="cell">
+
+                Modificar Empleado
+
+            </h1>
+            <div class="cell">
+                <form method="POST"> {% csrf_token %}
+                    <div class="grid-x grid-padding-x">
+                        <div class="medium-6 cell">
+                            <label>Nombres
+                                {{ form.first_name}}                          
+                            </label>
+                        </div>
+                        <div class="medium-6 cell">
+                            <label>Apellidos
+                                {{ form.last_name}}                          
+                            </label>
+                        </div>
+                        <div class="medium-6 cell">
+                            <label>Área
+                                {{ form.job}}                          
+                            </label>
+                        </div>
+                        <div class="medium-6 cell">
+                            <label>Departamento
+                                {{ form.departamento}}                          
+                            </label>
+                        </div>
+                        <div class="medium-6 cell">
+                            <label>Habilidades
+                                {{ form.habilidades}}                          
+                            </label>
+                        </div>
+                        <div class="cell">
+                            <button class="submit success button">Save</button>
+                            
+                        </div>
+
+                    </div>
+                    
+                    
+                    
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+    
+{% endblock content %}
+    
+
+    
+   

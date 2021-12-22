@@ -4,7 +4,7 @@ from django.shortcuts import render
 #Paquete de vistas genéricas que tiene django y que trabajan bajo vistas basadas en clase.
 from django.views.generic import TemplateView, ListView, CreateView
 
-from .models import Prueba
+from .models import Prueba # Se importa la tabla Prueba para usarla en las vistas genericas 
 
 from .forms import PruebaForm
 
@@ -36,17 +36,20 @@ class PruebaListView(ListView): #ESTA VISTA SIRVE PARA PROCESOS DE LISTADO QUE V
     queryset = ['0', '10', '20', '100'] # parametro que sirve para pasar directamente una lista manual si todavia no se esta usando un modelo de base de datos. 
 
 class ListarPruebaListView(ListView): #ESTA VISTA SIRVE PARA PROCESOS DE LISTADO QUE VIENE DE LA BASE DE DATOS
-    model = Prueba
-    context_object_name = 'lista'
-    template_name = "home/lista-prueba.html"
+    model = Prueba # Se referencia a la tabla Prueba para listar
+    context_object_name = 'lista' # parámetro que usa ListView para declarar una especie de variable para hacer referencia a los datos de la tabla Prueba EN EL ARCHIVO HTML SE LLAMA ESTA VARIABLE DE ESTA FORMA {{lista}}
+    template_name = "home/lista-prueba.html" # template a donde se visualizara la lista
 
 
 
-class PruebaCreateView(CreateView):
-    template_name = "home/add.html"
-    model = Prueba
+class PruebaCreateView(CreateView): # Registra datos a un modelo de base de datos desde un template personalizada
+    template_name = "home/add.html" # template a donde se visualizara la lista
+    model = Prueba# Se referencia a la tabla Prueba para agregar o crear nuevos datos a la base de datos
     form_class = PruebaForm
     success_url = '/'
+
+    #se le indica a que parametros hay que registrar datos en la tabla o modelo
+    fields = ['titulo', 'subtitulo', 'cantidad']
 
 
   
